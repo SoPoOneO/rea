@@ -3,7 +3,7 @@ class Roommate extends React.Component {
     render() {
         return (
             <li>
-                {this.props.roommate.name}
+                <input defaultValue={this.props.roommate.name} />
                 <ul>
                     {this.props.roommate.expenses.map(expense => (
                         <Expense key={expense.key} expense={expense} />
@@ -19,7 +19,7 @@ class Expense extends React.Component {
     render() {
         return (
             <li>
-                expense
+                {this.props.expense.item}: {this.props.expense.ammount}
             </li>
         );
     }
@@ -34,11 +34,23 @@ class App extends React.Component {
         this.state = {
             roommates: [{
                 key: 1,
-                name: 'john',
+                name: 'alice',
                 expenses: [{
-                    key: 1
+                    key: 1,
                     item: "rent",
                     ammount: 200
+                },{
+                    key: 2,
+                    item: "food",
+                    ammount: 50
+                }]
+            },{
+                key: 2,
+                name: 'Bob',
+                expenses: [{
+                    key: 1,
+                    item: "laundry",
+                    ammount: 80
                 }]
             }]
         };
@@ -53,10 +65,6 @@ class App extends React.Component {
                         <Roommate key={roommate.key} roommate={roommate} />
                     ))}
                 </ul>
-                <form onSubmit={this.handleSubmit}>
-                    <input onChange={this.handleChange} value={this.state.text} />
-                    <button>{'Add #' + (this.state.roommates.length + 1)}</button>
-                </form>
             </div>
         );
     }

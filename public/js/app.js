@@ -11,10 +11,9 @@ class Roommate extends React.Component {
         var item = "";
         var ammount = "";
         var expense = {key, item, ammount};
-        // console.log(expense);
-        // this.setState((prevState) => ({
-        //     roomate.expenses: prevState.roommate.expenses.concat(expense)
-        // }));
+        this.setState((prevState) => ({
+            expenses: prevState.expenses.concat(expense)
+        }));
     }
 
     render() {
@@ -23,7 +22,7 @@ class Roommate extends React.Component {
                 <input defaultValue={this.state.name} />
                 <ul>
                     {this.state.expenses.map(expense => (
-                        <Expense key={expense.key} expense={expense} />
+                        <Expense key={expense.key} item={expense.item} ammount={expense.ammount} />
                     ))}
                 </ul>
                 <button onClick={this.addExpense}>Add Expense</button>
@@ -39,10 +38,10 @@ class Expense extends React.Component {
         return (
             <li>
                 item:
-                <input defaultValue={this.props.expense.item} />
+                <input defaultValue={this.props.item} />
                 -
                 ammout:
-                <input defaultValue={this.props.expense.ammount} />
+                <input defaultValue={this.props.ammount} />
             </li>
         );
     }
@@ -75,7 +74,7 @@ class App extends React.Component {
     addRoommate(){
         var key = Date.now();
         var name = "roommate5";
-        var expenses = [{name: '', ammount: null}];
+        var expenses = [{key: key, name: '', ammount: null}];
         var roommate = {key, name, expenses};
         this.setState((prevState) => ({
             roommates: prevState.roommates.concat(roommate)
